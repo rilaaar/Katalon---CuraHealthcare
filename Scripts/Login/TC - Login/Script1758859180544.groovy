@@ -19,17 +19,21 @@ import org.openqa.selenium.Keys as Keys
 
 WebUI.openBrowser('')
 
-WebUI.navigateToUrl('https://katalon-demo-cura.herokuapp.com/')
+WebUI.navigateToUrl(GlobalVariable.baseUrl)
 
 WebUI.click(findTestObject('homepage/btn-appointment'))
 
-WebUI.setText(findTestObject('loginPage/field-username'), 'John Doe')
+WebUI.setText(findTestObject('loginPage/field-username'), username)
 
-WebUI.setText(findTestObject('loginPage/field-password'), 'ThisIsNotAPassword')
+WebUI.setText(findTestObject('loginPage/field-password'), password)
 
 WebUI.click(findTestObject('loginPage/btn-login'))
 
-WebUI.verifyElementVisible(findTestObject('appointmentPage/title-healthcareProgram'))
+if (testType == 'P') {
+    WebUI.verifyElementVisible(findTestObject('appointmentPage/title-healthcareProgram'))
+} else if (testType == 'N') {
+    WebUI.verifyElementText(findTestObject('loginPage/error-message'), expected)
+}
 
 WebUI.closeBrowser()
 
